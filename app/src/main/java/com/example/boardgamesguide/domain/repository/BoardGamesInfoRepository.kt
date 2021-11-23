@@ -17,4 +17,8 @@ interface BoardGamesInfoRepository {
         max_players: Int,
         lt_max_playtime: Int,
     ): Flow<NetworkResult<GameItems>>
+
+    fun getBoardGameById(
+        id:String
+    ): Flow<NetworkResult<GameItems>>
 }

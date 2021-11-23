@@ -21,10 +21,14 @@ class BoardGamesInfoRepositoryImpl @Inject constructor(
         emit(NetworkResult.LoadingState)
         try {
             delay(1000)
-            emit(NetworkResult.DataState(apiService.topBoardGames(
-                limit = LIMIT,
-                order_by = ORDER,
-                client_id = "JLBr5npPhV")))
+            emit(
+                NetworkResult.DataState(
+                    apiService.topBoardGames(
+                        limit = LIMIT,
+                        order_by = ORDER
+                    )
+                )
+            )
         } catch (e: Exception) {
             e.printStackTrace()
             emit(NetworkResult.ErrorState(e))
@@ -39,19 +43,32 @@ class BoardGamesInfoRepositoryImpl @Inject constructor(
         emit(NetworkResult.LoadingState)
         try {
             delay(1000)
-            emit(NetworkResult.DataState(apiService.randomBoardGames(
-                limit = LIMIT_RANDOM,
-                min_players = min_players,
-                max_players = max_players,
-                lt_max_playtime = lt_max_playtime,
-                //TODO CHANGE CLIENT_ID TO HEADER
-                client_id = "JLBr5npPhV"
-            )))
+            emit(
+                NetworkResult.DataState(
+                    apiService.randomBoardGames(
+//                limit = LIMIT_RANDOM,
+//                min_players = min_players,
+//                max_players = max_players,
+//                lt_max_playtime = lt_max_playtime,
+                    )
+                )
+            )
         } catch (e: Exception) {
             e.printStackTrace()
             emit(NetworkResult.ErrorState(e))
         }
     }.flowOn(Dispatchers.IO)
 
+    override fun getBoardGameById(id: String): Flow<NetworkResult<GameItems>> = flow {
+        emit(NetworkResult.LoadingState)
+        try {
+            emit(NetworkResult.DataState(apiService.getGameById(id = id)))
 
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(NetworkResult.ErrorState(e))
+
+
+        }
+    }
 }

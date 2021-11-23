@@ -8,6 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.boardgamesguide.R
 import com.example.boardgamesguide.domain.repository.BoardGamesInfoRepository
 import com.example.boardgamesguide.domain.repository.BoardGamesInfoRepositoryImpl
+import com.example.boardgamesguide.domain.use_case.GetBoardGameByIdUseCase
 import com.example.boardgamesguide.domain.use_case.TopGamesUseCase
 import com.example.boardgamesguide.domain.use_case.RandomGamesUseCase
 import com.example.boardgamesguide.network.ApiService
@@ -41,15 +42,21 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideGetWordInfoUseCase(repository: BoardGamesInfoRepository): TopGamesUseCase {
-        return TopGamesUseCase(repository)
-    }
+    fun provideGetWordInfoUseCase(repository: BoardGamesInfoRepository): TopGamesUseCase =
+        TopGamesUseCase(repository)
+
 
     @Singleton
     @Provides
-    fun provideSearchInfoUseCase(repository: BoardGamesInfoRepository): RandomGamesUseCase {
-        return RandomGamesUseCase(repository)
-    }
+    fun provideSearchInfoUseCase(repository: BoardGamesInfoRepository): RandomGamesUseCase =
+        RandomGamesUseCase(repository)
+
+
+    @Singleton
+    @Provides
+    fun provideGetBoardGameByIdUseCase(repository: BoardGamesInfoRepository):
+            GetBoardGameByIdUseCase = GetBoardGameByIdUseCase(repository)
+
     @Provides
     @Singleton
     fun provideWordInfoRepository(
