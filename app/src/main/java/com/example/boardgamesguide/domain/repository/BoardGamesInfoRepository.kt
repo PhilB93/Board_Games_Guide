@@ -9,5 +9,12 @@ import kotlinx.coroutines.flow.Flow
 
 interface BoardGamesInfoRepository {
 
-    fun getBoardGamesInfo(): Flow<NetworkResult<GameItems>>
+    fun topBoardGames(
+    ): Flow<NetworkResult<GameItems>>
+
+    fun randomBoardGameInfo(
+        min_players: Int,
+        max_players: Int,
+        lt_max_playtime: Int,
+    ): Flow<NetworkResult<GameItems>>
 }

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Board Games Guide</string>
+    <string name="KEY_PREF_MIN_PLAYERS">min_players</string>
+    <string name="KEY_PREF_MAX_PLAYERS">max_players</string>
+    <string name="KEY_PREF_MAX_PLAYTIME">max_playtime</string>
 </resources>

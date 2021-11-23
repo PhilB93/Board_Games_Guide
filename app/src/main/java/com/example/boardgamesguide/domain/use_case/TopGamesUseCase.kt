@@ -9,11 +9,11 @@ import com.example.boardgamesguide.util.NetworkResult
 import kotlinx.coroutines.flow.Flow
 
 
-class GetBoardGamesInfo(
+class TopGamesUseCase(
     private val boardGamesInfoRepository: BoardGamesInfoRepository
 ) {
 
     operator fun invoke(): Flow<NetworkResult<GameItems>> =
-        boardGamesInfoRepository.getBoardGamesInfo()
+        boardGamesInfoRepository.topBoardGames()
 
 }
