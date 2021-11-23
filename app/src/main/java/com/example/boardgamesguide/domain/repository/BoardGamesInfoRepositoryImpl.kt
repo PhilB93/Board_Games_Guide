@@ -20,7 +20,6 @@ class BoardGamesInfoRepositoryImpl @Inject constructor(
     override fun topBoardGames(): Flow<NetworkResult<GameItems>> = flow {
         emit(NetworkResult.LoadingState)
         try {
-            delay(1000)
             emit(
                 NetworkResult.DataState(
                     apiService.topBoardGames(
@@ -42,7 +41,7 @@ class BoardGamesInfoRepositoryImpl @Inject constructor(
     ): Flow<NetworkResult<GameItems>> = flow {
         emit(NetworkResult.LoadingState)
         try {
-            delay(1000)
+
             emit(
                 NetworkResult.DataState(
                     apiService.randomBoardGames(
