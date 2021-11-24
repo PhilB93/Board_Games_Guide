@@ -4,14 +4,13 @@ import com.example.boardgamesguide.domain.model.GameItems
 import com.example.boardgamesguide.network.ApiService
 import com.example.boardgamesguide.util.NetworkResult
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-private const val LIMIT = 3
-private const val LIMIT_RANDOM = 1
+private const val LIMIT = 10
+private const val RANDOM_LIMIT = 1
 private const val ORDER = "rank"
 
 class BoardGamesInfoRepositoryImpl @Inject constructor(
@@ -37,7 +36,8 @@ class BoardGamesInfoRepositoryImpl @Inject constructor(
     override fun randomBoardGameInfo(
         min_players: Int,
         max_players: Int,
-        lt_max_playtime: Int
+        gt_min_playtime:Int,
+        lt_max_playtime:Int
     ): Flow<NetworkResult<GameItems>> = flow {
         emit(NetworkResult.LoadingState)
         try {
@@ -45,10 +45,10 @@ class BoardGamesInfoRepositoryImpl @Inject constructor(
             emit(
                 NetworkResult.DataState(
                     apiService.randomBoardGames(
-//                limit = LIMIT_RANDOM,
-//                min_players = min_players,
-//                max_players = max_players,
-//                lt_max_playtime = lt_max_playtime,
+                        gt_min_players = min_players,
+                        lt_max_players = max_players,
+                        gt_min_playtime = gt_min_playtime,
+                        lt_max_playtime = lt_max_playtime
                     )
                 )
             )

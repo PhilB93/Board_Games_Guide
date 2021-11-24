@@ -1,5 +1,6 @@
 package com.example.boardgamesguide.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -41,9 +42,9 @@ class BaseGamesAdapter(private val listener: BoardGameOnClickListener) :
         private val listener: BoardGameOnClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SetTextI18n")
         fun bindGame(item: Game?) = with(binding) {
-            tvName.text = item?.name
-            tvDescription.text = item?.description_preview
+            tvName.text = "${item?.name} (${item?.year_published})"
             Glide.with(ivGameImage).load(item?.image_url).apply(
                 RequestOptions()
                     .placeholder(R.drawable.ic_search)

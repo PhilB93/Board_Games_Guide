@@ -1,12 +1,14 @@
 package com.example.boardgamesguide.ui.main
 
+import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -27,26 +29,42 @@ import com.example.boardgamesguide.util.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import java.lang.Exception
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener {
-    private val mainViewModel by viewModels<MainViewModel>()
-    private val binding: FragmentMainBinding by viewBinding()
     @Inject
     lateinit var glide: RequestManager
     private val gameAdapter by lazy(LazyThreadSafetyMode.NONE) { BaseGamesAdapter(this) }
+    private var _binding: FragmentMainBinding? = null
+    private val binding
+        get() = requireNotNull(_binding)
+    private val mainViewModel by viewModels<MainViewModel>()
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        FragmentMainBinding.inflate(inflater).also { _binding = it }
+        return binding.root
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupRecyclerView()
         fetchTopGames()
         fetchRandomGame()
         refreshRandomGame()
     }
+
     private fun setupRecyclerView() = binding.recycler.apply {
         adapter = gameAdapter
-        layoutManager = LinearLayoutManager(context)
+        layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
     }
 
     private fun fetchTopGames() {
@@ -58,9 +76,9 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
                         when (it) {
                             is NetworkResult.DataState -> {
                                 pbDog.isVisible = false
+                                setVisibilityForUI(true)
                                 it.data?.let { response ->
                                     gameAdapter.submitList(response.games)
-                                    Log.i("123", response.toString())
                                 }
                             }
                             is NetworkResult.ErrorState -> {
@@ -68,6 +86,7 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
                             }
                             is NetworkResult.LoadingState -> {
                                 pbDog.isVisible = true
+                                setVisibilityForUI(false)
                             }
                         }
                     }
@@ -75,9 +94,20 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
         }
     }
 
+    private fun setVisibilityForUI(visible: Boolean) {
+        with(binding)
+        {
+            tvTopgames.isVisible = visible
+            tvRandomGame.isVisible = visible
+            randomGame.isVisible = visible
+            btnRefresh.isVisible = visible
+        }
+    }
+
     private fun fetchRandomGame() {
-        binding.apply {
+       with(binding) {
             lifecycleScope.launchWhenCreated {
+                try {
                 delay(500)
                 mainViewModel.randomGame
                     .collectLatest {
@@ -90,6 +120,7 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
                             }
                             is NetworkResult.ErrorState -> {
                                 pbDog.isVisible = false
+
                                 //   tvText.text = "error ${it.exception}"
                             }
                             is NetworkResult.LoadingState -> {
@@ -98,9 +129,17 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
                         }
                     }
             }
+                catch (e:Exception)
+                {
+                    e.printStackTrace()
+                    Log.i("123", "smth WRONG")
+                    fetchRandomGame()
+                }
+            }
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setRandomGameView(game: GameItems) {
         with(binding)
         {
@@ -112,17 +151,17 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
                     .error(R.drawable.ic_search)
                     .transform(RoundedCorners(ROUNDED_CORNERS))
             ).into(ivGame)
-            tvTitle.text = position.name
+            tvTitle.text = "${position.name} (${position.year_published})"
             tvRating.text = String.format("%.3f", position.average_user_rating)
             ivGame.setOnClickListener {
-                findNavController().
-                navigate(MainFragmentDirections.
-                actionMainFragmentToDetailsFragment(position))
+                findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToDetailsFragment(position)
+                )
             }
         }
     }
 
-    private fun refreshRandomGame(){
+    private fun refreshRandomGame() {
         binding.btnRefresh.setOnClickListener {
             mainViewModel.randomGames()
             Log.i("123", "Call")
@@ -130,9 +169,11 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     }
 
 
-
     override fun onClick(game: Game) {
         findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(game))
     }
-
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 }

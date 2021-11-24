@@ -3,6 +3,30 @@
     <string name="KEY_PREF_MIN_PLAYERS">min_players</string>
     <string name="KEY_PREF_MAX_PLAYERS">max_players</string>
     <string name="KEY_PREF_MAX_PLAYTIME">max_playtime</string>
+    <string name="KEY_PREF_MIN_PLAYTIME">min_playtime</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="players">Players</string>
+    <string name="ages">AGES</string>
+    <string name="playing_time">PLAYING TIME</string>
+    <string name="price">PRICE</string>
+    <string name="rating">RATING</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="setFilters">Set Some Filters</string>
+
 </resources>

@@ -3,7 +3,6 @@ package com.example.boardgamesguide.network
 
 import com.example.boardgamesguide.domain.model.GameItems
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
 
@@ -15,13 +14,13 @@ interface ApiService {
         @Query("client_id") client_id: String = CLIENT_ID
     ): GameItems
 
-    @GET("api/search?random=true&limit=1")
+    @GET("api/search")
     suspend fun randomBoardGames(
-        //  @Query("limit") limit: Int,
-        //  @Query("min_players") min_players: Int,
-        //  @Query("max_players") max_players: Int,
-        //    @Query("lt_max_playtime") lt_max_playtime: Int,
-        //    @Query("client_id") client_id: String,
+        @Query("gt_min_players") gt_min_players: Int,
+        @Query("lt_max_players") lt_max_players: Int,
+        @Query("gt_min_playtime") gt_min_playtime: Int,
+        @Query("lt_max_playtime") lt_max_playtime: Int,
+        @Query("random") random: Boolean = true,
         @Query("client_id") client_id: String = CLIENT_ID
     ): GameItems
 

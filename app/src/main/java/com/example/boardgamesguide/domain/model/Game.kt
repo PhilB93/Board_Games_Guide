@@ -20,4 +20,5 @@ data class Game(
     val price_text: String,
     val rules_url: String,
     val url: String,
+    val year_published: Int,
 ):Parcelable
