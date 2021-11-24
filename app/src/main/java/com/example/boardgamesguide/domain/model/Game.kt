@@ -1,10 +1,11 @@
 package com.example.boardgamesguide.domain.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Game(
-    val average_learning_complexity: Double,
-    val average_strategy_complexity: Double,
     val average_user_rating: Double,
-    val categories: List<Category>,
     val description: String,
     val description_preview: String,
     val id: String,
@@ -18,6 +19,5 @@ data class Game(
     val official_url: String,
     val price_text: String,
     val rules_url: String,
-    val tags: List<String>,
     val url: String,
-)
+):Parcelable
