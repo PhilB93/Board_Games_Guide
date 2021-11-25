@@ -16,10 +16,6 @@ interface ApiService {
 
     @GET("api/search")
     suspend fun randomBoardGames(
-        @Query("gt_min_players") gt_min_players: Int,
-        @Query("lt_max_players") lt_max_players: Int,
-        @Query("gt_min_playtime") gt_min_playtime: Int,
-        @Query("lt_max_playtime") lt_max_playtime: Int,
         @Query("random") random: Boolean = true,
         @Query("client_id") client_id: String = CLIENT_ID
     ): GameItems

@@ -7,11 +7,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
@@ -37,18 +41,11 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     @Inject
     lateinit var glide: RequestManager
     private val gameAdapter by lazy(LazyThreadSafetyMode.NONE) { BaseGamesAdapter(this) }
-    private var _binding: FragmentMainBinding? = null
-    private val binding
-        get() = requireNotNull(_binding)
+    private val binding: FragmentMainBinding by viewBinding()
+
     private val mainViewModel by viewModels<MainViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        FragmentMainBinding.inflate(inflater).also { _binding = it }
-        return binding.root
-    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -56,7 +53,9 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
         fetchTopGames()
         fetchRandomGame()
         refreshRandomGame()
+
     }
+
 
     private fun setupRecyclerView() = binding.recycler.apply {
         adapter = gameAdapter
@@ -120,7 +119,6 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
                             }
                             is NetworkResult.ErrorState -> {
                                 pbDog.isVisible = false
-
                                 //   tvText.text = "error ${it.exception}"
                             }
                             is NetworkResult.LoadingState -> {
@@ -133,7 +131,6 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
                 {
                     e.printStackTrace()
                     Log.i("123", "smth WRONG")
-                    fetchRandomGame()
                 }
             }
         }
@@ -172,8 +169,6 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     override fun onClick(game: Game) {
         findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(game))
     }
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
-    }
+
+
 }

@@ -13,8 +13,8 @@
             android:id="@+id/action_mainFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_settingsFragment2"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_mainFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -29,11 +29,8 @@
             app:argType="com.example.boardgamesguide.domain.model.Game" />
     </fragment>
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.boardgamesguide.ui.settings.SettingsFragment"
-        android:label="SettingsFragment" >
-        <action
-            android:id="@+id/action_settingsFragment2_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
+        android:id="@+id/settingFragment"
+        android:name="com.example.boardgamesguide.ui.settings.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

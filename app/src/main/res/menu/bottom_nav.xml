@@ -6,7 +6,7 @@
         android:id="@+id/mainFragment"
         android:icon="@drawable/ic_baseline_home_24"/>
     <item android:title="@string/settings"
-        android:id="@+id/settingsFragment"
+        android:id="@+id/settingFragment"
         android:icon="@drawable/ic_baseline_settings_24"/>
 
 </menu>

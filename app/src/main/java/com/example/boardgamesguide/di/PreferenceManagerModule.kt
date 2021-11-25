@@ -1,8 +1,7 @@
 package com.example.boardgamesguide.di
 
 import android.content.Context
-import android.content.SharedPreferences
-import androidx.preference.PreferenceManager
+import com.example.boardgamesguide.ui.settings.SettingsManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +15,7 @@ class PreferenceManagerModule {
 
     @Singleton
     @Provides
-    fun preferenceManagerProvide(@ApplicationContext context: Context): SharedPreferences =
-        PreferenceManager.getDefaultSharedPreferences(context)
+    fun settingsManagerProvide(@ApplicationContext context: Context): SettingsManager =
+        SettingsManager(context)
+
 }
