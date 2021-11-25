@@ -10,35 +10,34 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.boardgamesguide.R
 import com.example.boardgamesguide.databinding.FragmentMainBinding
 import com.example.boardgamesguide.databinding.FragmentSettingBinding
+import com.example.boardgamesguide.ui.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class SettingFragment : Fragment(R.layout.fragment_setting) {
-    private val viewModel by viewModels<SettingsViewModel>()
+    private val viewModel by viewModels<MainViewModel>()
     private val binding: FragmentSettingBinding by viewBinding()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeUIMode()
      binding.btnLight.setOnClickListener{
-         viewModel.onHideCompletedClick(UIMode.LIGHT)
+         viewModel.toggleNightMode()
      }
-        binding.btnDark.setOnClickListener{
-            viewModel.onHideCompletedClick(UIMode.DARK)
-        }
+
     }
 
     private fun observeUIMode() {
         lifecycleScope.launchWhenCreated {
-            viewModel.preferencesFlow.collectLatest {
-                when (it) {
-                    UIMode.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    UIMode.DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            viewModel.darkThemeEnabled.collectLatest {
+                val defaultMode = if (it) {
+                    AppCompatDelegate.MODE_NIGHT_YES
+                } else {
+                    AppCompatDelegate.MODE_NIGHT_NO
                 }
-            }
 
+                AppCompatDelegate.setDefaultNightMode(defaultMode)
+            }
         }
     }
-
-
 }

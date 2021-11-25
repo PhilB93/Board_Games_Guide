@@ -12,18 +12,12 @@
         <action
             android:id="@+id/action_mainFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.example.boardgamesguide.ui.details.DetailsFragment"
-        android:label="fragment_details"
-        tools:layout="@layout/fragment_details" >
-        <action
-            android:id="@+id/action_detailsFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+        android:label="Details"
+        tools:layout="@layout/fragment_details">
         <argument
             android:name="game"
             app:argType="com.example.boardgamesguide.domain.model.Game" />
@@ -31,6 +25,15 @@
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.boardgamesguide.ui.settings.SettingFragment"
-        android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        android:label="Settings"
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_mainFragment2"
+            app:destination="@id/mainFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_settingFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>

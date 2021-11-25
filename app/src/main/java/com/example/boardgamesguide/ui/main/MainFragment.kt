@@ -1,21 +1,17 @@
 package com.example.boardgamesguide.ui.main
 
 import android.annotation.SuppressLint
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
@@ -33,7 +29,6 @@ import com.example.boardgamesguide.util.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
-import java.lang.Exception
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,9 +37,16 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     lateinit var glide: RequestManager
     private val gameAdapter by lazy(LazyThreadSafetyMode.NONE) { BaseGamesAdapter(this) }
     private val binding: FragmentMainBinding by viewBinding()
-
     private val mainViewModel by viewModels<MainViewModel>()
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        observeUiMode()
+        return super.onCreateView(inflater, container, savedInstanceState)
 
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +58,19 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
 
     }
 
+private fun observeUiMode(){
+    lifecycleScope.launchWhenCreated {
+        mainViewModel.darkThemeEnabled.collectLatest {
+            val defaultMode = if (it) {
+                AppCompatDelegate.MODE_NIGHT_YES
+            } else {
+                AppCompatDelegate.MODE_NIGHT_NO
+            }
 
+            AppCompatDelegate.setDefaultNightMode(defaultMode)
+        }
+    }
+}
     private fun setupRecyclerView() = binding.recycler.apply {
         adapter = gameAdapter
         layoutManager = LinearLayoutManager(
@@ -69,7 +83,6 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     private fun fetchTopGames() {
         binding.apply {
             lifecycleScope.launchWhenCreated {
-                delay(500)
                 mainViewModel.topGames()
                     .collectLatest {
                         when (it) {
@@ -104,31 +117,28 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     }
 
     private fun fetchRandomGame() {
-       with(binding) {
+        with(binding) {
             lifecycleScope.launchWhenCreated {
                 try {
-                delay(500)
-                mainViewModel.randomGame
-                    .collectLatest {
-                        when (it) {
-                            is NetworkResult.DataState -> {
-                                pbDog.isVisible = false
-                                it.data?.let { response ->
-                                    setRandomGameView(response)
+                    mainViewModel.randomGame
+                        .collectLatest {
+                            when (it) {
+                                is NetworkResult.DataState -> {
+                                    pbDog.isVisible = false
+                                    it.data?.let { response ->
+                                        setRandomGameView(response)
+                                    }
+                                }
+                                is NetworkResult.ErrorState -> {
+                                    pbDog.isVisible = false
+                                    //   tvText.text = "error ${it.exception}"
+                                }
+                                is NetworkResult.LoadingState -> {
+                                    pbDog.isVisible = true
                                 }
                             }
-                            is NetworkResult.ErrorState -> {
-                                pbDog.isVisible = false
-                                //   tvText.text = "error ${it.exception}"
-                            }
-                            is NetworkResult.LoadingState -> {
-                                pbDog.isVisible = true
-                            }
                         }
-                    }
-            }
-                catch (e:Exception)
-                {
+                } catch (e: Exception) {
                     e.printStackTrace()
                     Log.i("123", "smth WRONG")
                 }

@@ -21,14 +21,24 @@ class MainActivity() : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val naHosFragment =
+        val navHosFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        navController = naHosFragment.findNavController()
-        binding.bottomNavigationView.setupWithNavController(navController)
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            if(item.itemId != binding.bottomNavigationView.selectedItemId)
-                NavigationUI.onNavDestinationSelected(item, navController)
-            true
+        navController = navHosFragment.findNavController()
+        binding.bottomNavigationView.apply {
+            setupWithNavController(navController)
+            setOnItemSelectedListener { item ->
+                when (binding.bottomNavigationView.selectedItemId) {
+                    R.id.mainFragment -> {
+                        if (item.itemId != binding.bottomNavigationView.selectedItemId)
+                            NavigationUI.onNavDestinationSelected(item, navController)
+                    }
+                    else -> onBackPressed()
+                }
+                //НЕ ПЕРЕСОЗДАВАТЬ ФРАГМЕНТ ПРИ НАЖАТИИ НА НЕГО ЖЕ
+                if (item.itemId != binding.bottomNavigationView.selectedItemId)
+                    NavigationUI.onNavDestinationSelected(item, navController)
+                true
+            }
         }
     }
 
