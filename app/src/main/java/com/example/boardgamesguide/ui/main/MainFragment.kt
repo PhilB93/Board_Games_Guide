@@ -71,8 +71,8 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
 
 
     private fun handleSearchGames() {
+        hideProgressBar()
         binding.apply {
-
             lifecycleScope.launchWhenCreated {
                 mainViewModel.searchGames.collectLatest {
                     Log.i("123", it.toString())
@@ -92,9 +92,18 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
                                     Snackbar.LENGTH_LONG
                                 ).show()
                             }
-
                         }
                         is NetworkResult.ErrorState -> {
+                            hideProgressBar()
+                            Snackbar.make(
+                                requireContext(),
+                                binding.recycler,
+                                it.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                        is NetworkResult.EmptyState ->
+                        {
                             hideProgressBar()
                         }
                     }

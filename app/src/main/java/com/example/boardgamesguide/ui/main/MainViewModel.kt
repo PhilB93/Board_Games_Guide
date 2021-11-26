@@ -45,7 +45,7 @@ class MainViewModel @Inject constructor(
     val darkThemeEnabled = prefsStore.isNightMode()
 
     private val _searchGames: MutableStateFlow<NetworkResult<GameItems>> = MutableStateFlow(
-        NetworkResult.LoadingState
+        NetworkResult.EmptyState
     )
     val searchGames = _searchGames.asStateFlow()
 
