@@ -26,6 +26,12 @@ interface ApiService {
         @Query("client_id") client_id: String = CLIENT_ID
     ): GameItems
 
+    @GET("api/search")
+    suspend fun searchBoardGames(
+        @Query("name") name: String,
+        @Query("exact") exact: Boolean = true,
+        @Query("client_id") client_id: String = CLIENT_ID
+    ): GameItems
     companion object {
         const val CLIENT_ID = "JLBr5npPhV"
     }

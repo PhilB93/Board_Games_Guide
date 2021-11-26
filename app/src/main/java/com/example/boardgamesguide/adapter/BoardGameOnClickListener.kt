@@ -4,4 +4,5 @@ import com.example.boardgamesguide.domain.model.Game
 
 interface BoardGameOnClickListener {
     fun onClick(game: Game)
+
 }

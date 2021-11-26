@@ -60,9 +60,10 @@ class AppModule {
     @Provides
     @Singleton
     fun provideWordInfoRepository(
-        api: ApiService
+        api: ApiService,
+        @ApplicationContext context: Context
     ): BoardGamesInfoRepository {
-        return BoardGamesInfoRepositoryImpl(api)
+        return BoardGamesInfoRepositoryImpl(api, context)
     }
 
 

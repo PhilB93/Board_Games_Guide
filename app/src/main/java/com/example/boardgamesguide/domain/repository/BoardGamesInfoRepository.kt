@@ -17,4 +17,9 @@ interface BoardGamesInfoRepository {
     fun getBoardGameById(
         id:String
     ): Flow<NetworkResult<GameItems>>
+
+    fun searchBoardGames(
+        name:String
+    ): Flow<NetworkResult<GameItems>>
+
 }
