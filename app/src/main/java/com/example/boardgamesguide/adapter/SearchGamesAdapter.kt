@@ -11,6 +11,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.boardgamesguide.R
 import com.example.boardgamesguide.databinding.LayoutSearchItemBinding
+
+
 import com.example.boardgamesguide.domain.model.Game
 
 private const val ROUNDED_CORNERS = 16

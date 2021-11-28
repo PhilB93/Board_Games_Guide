@@ -8,9 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.boardgamesguide.R
 import com.example.boardgamesguide.domain.repository.BoardGamesInfoRepository
 import com.example.boardgamesguide.domain.repository.BoardGamesInfoRepositoryImpl
-import com.example.boardgamesguide.domain.use_case.GetBoardGameByIdUseCase
-import com.example.boardgamesguide.domain.use_case.TopGamesUseCase
-import com.example.boardgamesguide.domain.use_case.RandomGamesUseCase
+import com.example.boardgamesguide.domain.use_case.SearchBoardGamesUseCase
 import com.example.boardgamesguide.network.ApiService
 
 import dagger.Module
@@ -40,22 +38,13 @@ class AppModule {
             .diskCacheStrategy(DiskCacheStrategy.DATA)
     )
 
-    @Singleton
-    @Provides
-    fun provideGetWordInfoUseCase(repository: BoardGamesInfoRepository): TopGamesUseCase =
-        TopGamesUseCase(repository)
+
 
 
     @Singleton
     @Provides
-    fun provideSearchInfoUseCase(repository: BoardGamesInfoRepository): RandomGamesUseCase =
-        RandomGamesUseCase(repository)
-
-
-    @Singleton
-    @Provides
-    fun provideGetBoardGameByIdUseCase(repository: BoardGamesInfoRepository):
-            GetBoardGameByIdUseCase = GetBoardGameByIdUseCase(repository)
+    fun provideSearchBoardGamesCase(repository: BoardGamesInfoRepository):
+            SearchBoardGamesUseCase = SearchBoardGamesUseCase(repository)
 
     @Provides
     @Singleton

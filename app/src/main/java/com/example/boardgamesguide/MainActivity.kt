@@ -34,7 +34,6 @@ class MainActivity() : AppCompatActivity(R.layout.activity_main) {
                     }
                     else -> onBackPressed()
                 }
-                //НЕ ПЕРЕСОЗДАВАТЬ ФРАГМЕНТ ПРИ НАЖАТИИ НА НЕГО ЖЕ
                 if (item.itemId != binding.bottomNavigationView.selectedItemId)
                     NavigationUI.onNavDestinationSelected(item, navController)
                 true
