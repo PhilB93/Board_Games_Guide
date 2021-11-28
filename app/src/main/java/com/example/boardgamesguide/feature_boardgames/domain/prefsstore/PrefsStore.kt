@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.prefsstore
+package com.example.boardgamesguide.feature_boardgames.domain.prefsstore
 
 import kotlinx.coroutines.flow.Flow
 

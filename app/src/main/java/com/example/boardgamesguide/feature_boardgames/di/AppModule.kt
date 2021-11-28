@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.di
+package com.example.boardgamesguide.feature_boardgames.di
 
 
 import android.content.Context
@@ -6,10 +6,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.boardgamesguide.R
-import com.example.boardgamesguide.domain.repository.BoardGamesInfoRepository
-import com.example.boardgamesguide.domain.repository.BoardGamesInfoRepositoryImpl
-import com.example.boardgamesguide.domain.use_case.SearchBoardGamesUseCase
-import com.example.boardgamesguide.network.ApiService
+import com.example.boardgamesguide.feature_boardgames.domain.repository.BoardGamesInfoRepository
+import com.example.boardgamesguide.feature_boardgames.domain.use_case.SearchBoardGamesUseCase
+import com.example.boardgamesguide.feature_boardgames.data.remote.ApiService
+import com.example.boardgamesguide.feature_boardgames.data.repository.BoardGamesInfoRepositoryImpl
 
 import dagger.Module
 import dagger.Provides

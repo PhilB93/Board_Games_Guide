@@ -5,7 +5,7 @@
     android:id="@+id/btn_mode"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.settings.SettingsFragment">
+    tools:context=".feature_boardgames.presentation.settings.SettingsFragment">
 
     <Button
         android:id="@+id/btn_light"

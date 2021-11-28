@@ -1,8 +1,9 @@
-package com.example.boardgamesguide.domain.repository
+package com.example.boardgamesguide.feature_boardgames.data.repository
 
 import android.content.Context
-import com.example.boardgamesguide.domain.model.GameItems
-import com.example.boardgamesguide.network.ApiService
+import com.example.boardgamesguide.feature_boardgames.domain.model.GameItems
+import com.example.boardgamesguide.feature_boardgames.data.remote.ApiService
+import com.example.boardgamesguide.feature_boardgames.domain.repository.BoardGamesInfoRepository
 import com.example.boardgamesguide.util.NetworkResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

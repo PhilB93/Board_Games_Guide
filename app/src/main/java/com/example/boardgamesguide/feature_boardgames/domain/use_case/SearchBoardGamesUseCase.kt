@@ -1,7 +1,7 @@
-package com.example.boardgamesguide.domain.use_case
+package com.example.boardgamesguide.feature_boardgames.domain.use_case
 
-import com.example.boardgamesguide.domain.model.GameItems
-import com.example.boardgamesguide.domain.repository.BoardGamesInfoRepository
+import com.example.boardgamesguide.feature_boardgames.domain.model.GameItems
+import com.example.boardgamesguide.feature_boardgames.domain.repository.BoardGamesInfoRepository
 import com.example.boardgamesguide.util.NetworkResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

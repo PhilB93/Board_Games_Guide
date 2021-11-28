@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.ui.settings
+package com.example.boardgamesguide.feature_boardgames.presentation.settings
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,13 +10,13 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.boardgamesguide.R
 import com.example.boardgamesguide.databinding.FragmentSettingBinding
-import com.example.boardgamesguide.ui.main.MainViewModel
+import com.example.boardgamesguide.feature_boardgames.presentation.main.BoardGamesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment(R.layout.fragment_setting) {
-    private val viewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModels<BoardGamesViewModel>()
     private val binding: FragmentSettingBinding by viewBinding()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

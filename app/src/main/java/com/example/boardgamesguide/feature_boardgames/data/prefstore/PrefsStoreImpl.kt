@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.prefsstore
+package com.example.boardgamesguide.feature_boardgames.data.prefstore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.boardgamesguide.feature_boardgames.domain.prefsstore.PrefsStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map

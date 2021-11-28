@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.adapter
+package com.example.boardgamesguide.feature_boardgames.presentation.main.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import com.example.boardgamesguide.R
 import com.example.boardgamesguide.databinding.LayoutSearchItemBinding
 
 
-import com.example.boardgamesguide.domain.model.Game
+import com.example.boardgamesguide.feature_boardgames.domain.model.Game
 
 private const val ROUNDED_CORNERS = 16
 

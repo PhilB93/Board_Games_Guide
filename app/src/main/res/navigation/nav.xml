@@ -6,34 +6,35 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.boardgamesguide.ui.main.MainFragment"
+        android:name="com.example.boardgamesguide.feature_boardgames.presentation.main.MainFragment"
         android:label="Home"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.boardgamesguide.ui.details.DetailsFragment"
+        android:name="com.example.boardgamesguide.feature_boardgames.presentation.details.DetailsFragment"
         android:label="Details"
         tools:layout="@layout/fragment_details">
         <argument
             android:name="game"
-            app:argType="com.example.boardgamesguide.domain.model.Game" />
+            app:argType="com.example.boardgamesguide.feature_boardgames.domain.model.Game" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.boardgamesguide.ui.settings.SettingsFragment"
+        android:name="com.example.boardgamesguide.feature_boardgames.presentation.settings.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_setting" >
         <action
-            android:id="@+id/action_settingFragment_to_mainFragment2"
-            app:destination="@id/mainFragment"
-            app:popUpToInclusive="false" />
+            android:id="@+id/action_settingFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
         <action
             android:id="@+id/action_settingFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment"
-            app:popUpToInclusive="false" />
+            app:destination="@id/detailsFragment" />
     </fragment>
 </navigation>

@@ -1,7 +1,7 @@
-package com.example.boardgamesguide.domain.model
+package com.example.boardgamesguide.feature_boardgames.domain.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class GameItems(

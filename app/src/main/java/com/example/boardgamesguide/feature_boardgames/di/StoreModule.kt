@@ -1,8 +1,8 @@
-package com.example.boardgamesguide.di
+package com.example.boardgamesguide.feature_boardgames.di
 
 import android.content.Context
-import com.example.boardgamesguide.prefsstore.PrefsStore
-import com.example.boardgamesguide.prefsstore.PrefsStoreImpl
+import com.example.boardgamesguide.feature_boardgames.domain.prefsstore.PrefsStore
+import com.example.boardgamesguide.feature_boardgames.data.prefstore.PrefsStoreImpl
 
 import dagger.Module
 import dagger.Provides

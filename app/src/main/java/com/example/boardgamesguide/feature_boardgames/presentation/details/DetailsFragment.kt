@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.ui.details
+package com.example.boardgamesguide.feature_boardgames.presentation.details
 
 
 import android.annotation.SuppressLint
@@ -38,7 +38,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 else
                 loadUrl(args.game.url)
 
-                setOnKeyListener { v, keyCode, event ->
+                setOnKeyListener { _, keyCode, event ->
                     if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
                         if (this.canGoBack())
                             this.goBack()

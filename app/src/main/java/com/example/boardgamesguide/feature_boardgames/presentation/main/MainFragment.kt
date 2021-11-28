@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.ui.main
+package com.example.boardgamesguide.feature_boardgames.presentation.main
 
 
 import android.os.Bundle
@@ -9,17 +9,15 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.boardgamesguide.R
-import com.example.boardgamesguide.adapter.BoardGameOnClickListener
-import com.example.boardgamesguide.adapter.SearchGamesAdapter
 import com.example.boardgamesguide.databinding.FragmentMainBinding
-import com.example.boardgamesguide.domain.model.Game
+import com.example.boardgamesguide.feature_boardgames.domain.model.Game
+import com.example.boardgamesguide.feature_boardgames.presentation.main.adapter.BoardGameOnClickListener
+import com.example.boardgamesguide.feature_boardgames.presentation.main.adapter.SearchGamesAdapter
 import com.example.boardgamesguide.util.NetworkResult
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +28,7 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
 
     private val gameAdapter by lazy(LazyThreadSafetyMode.NONE) { SearchGamesAdapter(this) }
     private val binding: FragmentMainBinding by viewBinding()
-    private val mainViewModel by viewModels<MainViewModel>()
+    private val viewModel by viewModels<BoardGamesViewModel>()
 
 
     override fun onCreateView(
@@ -53,7 +51,7 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
 
     private fun observeUiMode() {
         lifecycleScope.launchWhenCreated {
-            mainViewModel.darkThemeEnabled.collectLatest {
+            viewModel.darkThemeEnabled.collectLatest {
                 val defaultMode = if (it) {
                     AppCompatDelegate.MODE_NIGHT_YES
                 } else {
@@ -65,7 +63,6 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     }
 
 
-
     override fun onDestroy() {
         super.onDestroy()
         Log.i("123", "Destroyed")
@@ -75,7 +72,7 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
         hideProgressBar()
         binding.apply {
             lifecycleScope.launchWhenCreated {
-                mainViewModel.searchGames.collectLatest {
+                viewModel.searchGames.collectLatest {
                     Log.i("123", it.toString())
                     when (it) {
                         is NetworkResult.LoadingState -> {
@@ -115,15 +112,15 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
 
     private fun fetchGames() {
         binding.svGames.apply {
-          onActionViewExpanded()
+            onActionViewExpanded()
             clearFocus()
-            queryHint = "Enter at least 2 symbols";
+            queryHint = "Enter at least 2 symbols"
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(name: String?): Boolean {
                     if (name != null && name.length > 1) {
                         gameAdapter.submitList(emptyList())
                         binding.recycler.scrollToPosition(0)
-                        mainViewModel.searchGames(name)
+                        viewModel.searchGames(name)
                         binding.svGames.clearFocus()
                     } else
                         Snackbar.make(
@@ -142,10 +139,8 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
         }
     }
 
-
     private fun setupRecyclerView() = binding.recycler.apply {
         adapter = gameAdapter
-       // layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun hideProgressBar() {
