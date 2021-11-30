@@ -2,14 +2,13 @@ package com.example.boardgamesguide.feature_boardgames.domain.repository
 
 
 
-import com.example.boardgamesguide.feature_boardgames.domain.model.GameItems
-import com.example.boardgamesguide.util.NetworkResult
-import kotlinx.coroutines.flow.Flow
+import com.example.boardgamesguide.feature_boardgames.data.model.GameDto
+
+
 
 interface BoardGamesInfoRepository {
-
-    fun searchBoardGames(
+    suspend fun searchBoardGames(
         name:String
-    ): Flow<NetworkResult<GameItems>>
+    ): List<GameDto>
 
 }
