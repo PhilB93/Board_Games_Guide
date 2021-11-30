@@ -21,9 +21,7 @@ import com.example.boardgamesguide.feature_boardgames.presentation.main.adapter.
 import com.example.boardgamesguide.feature_boardgames.presentation.main.adapter.SearchGamesAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.job
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener {
@@ -45,20 +43,40 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-//        handleSearchGames()
-//        fetchGames()
+        handleEvent()
+        collectData()
+        fetchGames()
+    }
 
+    private fun showSnackbar(message: String) {
+        Snackbar.make(
+            binding.recycler,
+            message,
+            Snackbar.LENGTH_LONG
+        ).show()
+    }
+
+    private fun handleEvent() {
+        lifecycleScope.launchWhenCreated {
+            viewModel.eventFlow.collectLatest { event ->
+                Log.i("123", event.toString())
+                when (event) {
+                    is BoardGamesViewModel.UIEvent.ShowSnackbar ->
+                        showSnackbar(event.message)
+
+                }
+            }
+        }
+    }
+
+    private fun collectData() {
         lifecycleScope.launchWhenCreated {
             viewModel.state.collectLatest {
                 binding.pbGames.isVisible = it.isLoading
                 gameAdapter.submitList(it.games)
             }
         }
-        fetchGames()
-
-
     }
-
 
     private fun observeUiMode() {
         lifecycleScope.launchWhenCreated {
@@ -77,21 +95,15 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
         binding.svGames.apply {
             onActionViewExpanded()
             clearFocus()
-            queryHint = "Enter at least 2 symbols"
+            queryHint = "Enter 'Catan' 'Bang' 'Thing' etc"
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(name: String?): Boolean {
-                    if (name != null && name.isNotBlank()  && name.length > 1) {
-                     //bang gameAdapter.submitList(emptyList())
+                override fun onQueryTextSubmit(name: String): Boolean {
+                    if (name.isNotEmpty() && name.isNotBlank() && name.length in 2..20) {
                         binding.recycler.scrollToPosition(0)
                         viewModel.onSearch(name)
                         binding.svGames.clearFocus()
                     } else
-                        Snackbar.make(
-                            requireContext(),
-                            binding.recycler,
-                            "Name must contain at least 2 letters :)",
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                        showSnackbar("Name must contain 3-20 symbols :)")
                     return true
                 }
 
@@ -101,92 +113,9 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
             })
         }
     }
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i("123", "Destroyed")
-    }
-
-//    private fun handleSearchGames() {
-//        hideProgressBar()
-//        binding.apply {
-//            lifecycleScope.launchWhenCreated {
-//                viewModel.searchGames.collectLatest {
-//                    Log.i("123", it.toString())
-//                    when (it) {
-//                        is NetworkResult.LoadingState -> {
-//                            showProgressBar()
-//                        }
-//                        is NetworkResult.DataState -> {
-//                            hideProgressBar()
-//                            if (it.data.isNotEmpty())
-//                                gameAdapter.submitList(it.data)
-//                            else {
-//                                Snackbar.make(
-//                                    requireContext(),
-//                                    binding.recycler,
-//                                    "No data",
-//                                    Snackbar.LENGTH_LONG
-//                                ).show()
-//                            }
-//                        }
-//                        is NetworkResult.ErrorState -> {
-//                            hideProgressBar()
-//                            Snackbar.make(
-//                                requireContext(),
-//                                binding.recycler,
-//                                it.message,
-//                                Snackbar.LENGTH_LONG
-//                            ).show()
-//                        }
-//                        is NetworkResult.EmptyState -> {
-//                            hideProgressBar()
-//                        }
-//                    }
-//
-//                }
-//            }
-//        }
-//    }
-
-//    private fun fetchGames() {
-//        binding.svGames.apply {
-//            onActionViewExpanded()
-//            clearFocus()
-//            queryHint = "Enter at least 2 symbols"
-//            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//                override fun onQueryTextSubmit(name: String?): Boolean {
-//                    if (name != null && name.length > 1) {
-//                        gameAdapter.submitList(emptyList())
-//                        binding.recycler.scrollToPosition(0)
-//                        viewModel.searchGames(name)
-//                        binding.svGames.clearFocus()
-//                    } else
-//                        Snackbar.make(
-//                            requireContext(),
-//                            binding.recycler,
-//                            "Name must contain at least 2 letters :)",
-//                            Snackbar.LENGTH_LONG
-//                        ).show()
-//                    return true
-//                }
-//
-//                override fun onQueryTextChange(newText: String?): Boolean {
-//                    return true
-//                }
-//            })
-//        }
-//    }
 
     private fun setupRecyclerView() = binding.recycler.apply {
         adapter = gameAdapter
-    }
-
-    private fun hideProgressBar() {
-        binding.pbGames.visibility = View.INVISIBLE
-    }
-
-    private fun showProgressBar() {
-        binding.pbGames.visibility = View.VISIBLE
     }
 
     override fun onClick(game: Game) {
