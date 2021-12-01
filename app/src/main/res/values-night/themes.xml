@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.BoardGamesGuide" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/light_gold</item>
+        <item name="colorPrimary">@color/gold</item>
         <item name="colorPrimaryVariant">@color/gold</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
