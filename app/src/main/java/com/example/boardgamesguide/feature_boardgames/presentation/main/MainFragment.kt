@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isEmpty
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import com.example.boardgamesguide.R
 import com.example.boardgamesguide.databinding.FragmentMainBinding
 import com.example.boardgamesguide.feature_boardgames.domain.model.Game
@@ -42,6 +44,7 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.ivNodata?.let { Glide.with(requireContext()).load(R.drawable.ic_nodata).into(it)}
         setupRecyclerView()
         handleEvent()
         collectData()
@@ -74,6 +77,7 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
             viewModel.state.collectLatest {
                 binding.pbGames.isVisible = it.isLoading
                 gameAdapter.submitList(it.games)
+                showAdCheck(it.games)
             }
         }
     }
@@ -90,7 +94,10 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
             }
         }
     }
-
+private fun showAdCheck(list: List<Game>)
+{
+    binding.ivNodata?.isVisible = list.isEmpty()
+}
     private fun fetchGames() {
         binding.svGames.apply {
             onActionViewExpanded()
