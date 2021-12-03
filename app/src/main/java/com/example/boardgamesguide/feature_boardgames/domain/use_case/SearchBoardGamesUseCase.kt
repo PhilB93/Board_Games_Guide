@@ -13,7 +13,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class SearchBoardGamesUseCase @Inject constructor(
+ class SearchBoardGamesUseCase @Inject constructor(
     private val repository: BoardGamesInfoRepository
 ) {
     operator fun invoke(name: String): Flow<Resource<List<Game>>> = flow {

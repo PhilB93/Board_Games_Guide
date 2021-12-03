@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 
 
-class BoardGamesInfoRepositoryImpl @Inject constructor(
+ class BoardGamesInfoRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     val context: Context
 ) : BoardGamesInfoRepository {

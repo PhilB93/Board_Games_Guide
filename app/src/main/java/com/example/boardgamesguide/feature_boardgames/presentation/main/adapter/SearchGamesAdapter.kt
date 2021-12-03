@@ -51,7 +51,7 @@ class SearchGamesAdapter(private val listener: BoardGameOnClickListener) :
             Glide.with(ivGameImage).load(item?.image_url).apply(
                 RequestOptions()
                     .placeholder(R.drawable.noimage)
-                    .error(R.drawable.ic_search)
+                    .error(R.drawable.noimage)
                     .transform(RoundedCorners(ROUNDED_CORNERS))
             ).into(ivGameImage)
             initButtonsListeners(item)

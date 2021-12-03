@@ -33,8 +33,9 @@ class AppModule {
         @ApplicationContext context: Context
     ) = Glide.with(context).setDefaultRequestOptions(
         RequestOptions()
-            .placeholder(R.drawable.ic_search)
-            .error(R.drawable.ic_search)
+            .placeholder(R.drawable.noimage)
+            .error(R.drawable.noimage)
+            .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.DATA)
     )
 

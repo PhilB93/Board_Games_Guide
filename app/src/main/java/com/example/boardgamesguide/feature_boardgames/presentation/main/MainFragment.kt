@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isEmpty
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -23,6 +22,7 @@ import com.example.boardgamesguide.feature_boardgames.presentation.main.adapter.
 import com.example.boardgamesguide.feature_boardgames.presentation.main.adapter.SearchGamesAdapter
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
@@ -44,7 +44,7 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.ivNodata?.let { Glide.with(requireContext()).load(R.drawable.ic_nodata).into(it)}
+        binding.ivNodata.let { Glide.with(requireContext()).load(R.drawable.ic_nodata).into(it)}
         setupRecyclerView()
         handleEvent()
         collectData()
@@ -60,8 +60,8 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     }
 
     private fun handleEvent() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.eventFlow.collectLatest { event ->
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.eventFlow.collect { event ->
                 Log.i("123", event.toString())
                 when (event) {
                     is BoardGamesViewModel.UIEvent.ShowSnackbar ->
@@ -73,7 +73,7 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     }
 
     private fun collectData() {
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.state.collectLatest {
                 binding.pbGames.isVisible = it.isLoading
                 gameAdapter.submitList(it.games)
@@ -83,7 +83,7 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     }
 
     private fun observeUiMode() {
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.darkThemeEnabled.collectLatest {
                 val defaultMode = if (it) {
                     AppCompatDelegate.MODE_NIGHT_YES
@@ -96,7 +96,7 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     }
 private fun showAdCheck(list: List<Game>)
 {
-    binding.ivNodata?.isVisible = list.isEmpty()
+    binding.ivNodata.isVisible = list.isEmpty()
 }
     private fun fetchGames() {
         binding.svGames.apply {
