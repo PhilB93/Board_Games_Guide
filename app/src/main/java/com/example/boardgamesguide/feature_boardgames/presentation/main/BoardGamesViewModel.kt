@@ -1,6 +1,5 @@
 package com.example.boardgamesguide.feature_boardgames.presentation.main
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardgamesguide.feature_boardgames.domain.prefsstore.PrefsStore
@@ -16,13 +15,12 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 @HiltViewModel
 class BoardGamesViewModel @Inject constructor(
     private val searchBoardGamesUseCase: SearchBoardGamesUseCase,
     private val prefsStore: PrefsStore
 ) : ViewModel() {
-    /** Light/Dark Mode */
+
     val darkThemeEnabled = prefsStore.isNightMode()
 
     fun toggleNightMode() {
@@ -31,7 +29,6 @@ class BoardGamesViewModel @Inject constructor(
         }
     }
 
-    /** Search games by query */
     private val _searchQuery = MutableStateFlow("")
 
     private val _state = MutableStateFlow(GameListState())
@@ -40,7 +37,7 @@ class BoardGamesViewModel @Inject constructor(
     private val _eventFlow = Channel<UIEvent>()
     val eventFlow = _eventFlow.receiveAsFlow()
 
-   private var searchJob: Job? = null
+    private var searchJob: Job? = null
 
     fun onSearch(query: String) {
         _searchQuery.value = query
@@ -80,7 +77,6 @@ class BoardGamesViewModel @Inject constructor(
     sealed class UIEvent {
         data class ShowSnackbar(val message: String) : UIEvent()
     }
-
 }
 
 

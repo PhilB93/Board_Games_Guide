@@ -1,6 +1,5 @@
 package com.example.boardgamesguide.feature_boardgames.presentation.details
 
-
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.KeyEvent
@@ -9,11 +8,9 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.bumptech.glide.RequestManager
 import com.example.boardgamesguide.R
 import com.example.boardgamesguide.databinding.FragmentDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -21,9 +18,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
 
     private val binding: FragmentDetailsBinding by viewBinding()
     private val args: DetailsFragmentArgs by navArgs()
-
-    @Inject
-    lateinit var glide: RequestManager
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +30,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
                 if (savedInstanceState != null)
                     restoreState(savedInstanceState)
                 else
-                loadUrl(args.game.url)
+                    loadUrl(args.game.url)
 
                 setOnKeyListener { _, keyCode, event ->
                     if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {

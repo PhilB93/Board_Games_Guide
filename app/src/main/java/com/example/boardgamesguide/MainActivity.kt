@@ -21,8 +21,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val navHosFragment = supportFragmentManager.
-        findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navHosFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHosFragment.findNavController()
         binding.bottomNavigationView.apply {
             setupWithNavController(navController)

@@ -6,4 +6,4 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GameItems(
     val games: List<Game>
-): Parcelable
+) : Parcelable

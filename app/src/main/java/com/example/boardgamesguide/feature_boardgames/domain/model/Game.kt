@@ -3,7 +3,6 @@ package com.example.boardgamesguide.feature_boardgames.domain.model
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
 data class Game(
     val average_user_rating: Double,
@@ -12,4 +11,4 @@ data class Game(
     val name: String,
     val url: String,
     val year_published: Int
-):Parcelable
+) : Parcelable

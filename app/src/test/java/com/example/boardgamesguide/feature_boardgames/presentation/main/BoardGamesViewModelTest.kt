@@ -47,14 +47,14 @@ class BoardGamesViewModelTest {
 
     @ExperimentalCoroutinesApi
     @Test
-    fun test() = runBlockingTest {
-        val listTestMockK = listOf<Game>(
+    fun `searching feature works properly`() = runBlockingTest {
+
+        val listTestMockK = listOf(
             Game(
                 0.0,
                 "", "", "", "", 0
             )
         )
-
         val listOfResource = listOf(
             Resource.Loading(),
             Resource.Success(listTestMockK)
@@ -62,8 +62,7 @@ class BoardGamesViewModelTest {
 
         val testString = "batman"
         val list = listOf(false, true)
-        //  val listExpTest = listOf(Resource.Loading, Resource.Success)
-        // every { prefsStore.isNightMode() } returns flowOf(true, false)
+
         every { prefsStore.isNightMode() } returns flowOf(*list.toTypedArray())
         every {
             searchBoardGamesUseCase(testString)
@@ -71,11 +70,7 @@ class BoardGamesViewModelTest {
 
         mainViewModel = BoardGamesViewModel(searchBoardGamesUseCase, prefsStore)
 
-//        mainViewModel.darkThemeEnabled.collectIndexed { i, el ->
-//            Assert.assertEquals(list[i], el)
-//        }
-
-        val expectedResults = listOf<GameListState>(
+        val expectedResults = listOf(
             GameListState(),
             GameListState(
                 isLoading = true
@@ -88,8 +83,6 @@ class BoardGamesViewModelTest {
         launch {
             mainViewModel.state.collectIndexed { i, el ->
                 Assert.assertEquals(expectedResults[i], el)
-
-                //Костыль
                 if (i == 2)
                     cancel()
             }
@@ -97,6 +90,19 @@ class BoardGamesViewModelTest {
         mainViewModel.onSearch(testString)
     }
 
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `darkThemeEnabled is working`() = runBlockingTest {
+
+        val list = listOf(false, true)
+
+        every { prefsStore.isNightMode() } returns flowOf(*list.toTypedArray())
+
+        mainViewModel = BoardGamesViewModel(searchBoardGamesUseCase, prefsStore)
+        mainViewModel.darkThemeEnabled.collectIndexed { i, el ->
+            Assert.assertEquals(list[i], el)
+        }
+    }
 
     @After
     fun tearDown() {

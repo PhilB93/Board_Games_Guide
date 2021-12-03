@@ -1,6 +1,5 @@
 package com.example.boardgamesguide.feature_boardgames.presentation.main
 
-
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -44,7 +43,7 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.ivNodata.let { Glide.with(requireContext()).load(R.drawable.ic_nodata).into(it)}
+        binding.ivNodata.let { Glide.with(requireContext()).load(R.drawable.ic_nodata).into(it) }
         setupRecyclerView()
         handleEvent()
         collectData()
@@ -66,7 +65,6 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
                 when (event) {
                     is BoardGamesViewModel.UIEvent.ShowSnackbar ->
                         showSnackbar(event.message)
-
                 }
             }
         }
@@ -94,13 +92,13 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
             }
         }
     }
-private fun showAdCheck(list: List<Game>)
-{
-    binding.ivNodata.isVisible = list.isEmpty()
-}
+
+    private fun showAdCheck(list: List<Game>) {
+        binding.ivNodata.isVisible = list.isEmpty()
+    }
+
     private fun fetchGames() {
         binding.svGames.apply {
-            onActionViewExpanded()
             clearFocus()
             queryHint = "Enter 'Catan' 'Bang' 'Thing' etc"
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -128,6 +126,4 @@ private fun showAdCheck(list: List<Game>)
     override fun onClick(game: Game) {
         findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailsFragment(game))
     }
-
-
 }

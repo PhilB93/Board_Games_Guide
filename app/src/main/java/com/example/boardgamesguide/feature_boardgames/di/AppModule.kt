@@ -1,16 +1,14 @@
 package com.example.boardgamesguide.feature_boardgames.di
 
-
 import android.content.Context
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.boardgamesguide.R
-import com.example.boardgamesguide.feature_boardgames.domain.repository.BoardGamesInfoRepository
-import com.example.boardgamesguide.feature_boardgames.domain.use_case.SearchBoardGamesUseCase
 import com.example.boardgamesguide.feature_boardgames.data.remote.ApiService
 import com.example.boardgamesguide.feature_boardgames.data.repository.BoardGamesInfoRepositoryImpl
-
+import com.example.boardgamesguide.feature_boardgames.domain.repository.BoardGamesInfoRepository
+import com.example.boardgamesguide.feature_boardgames.domain.use_case.SearchBoardGamesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +21,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 private const val BASE_URL = "https://api.boardgameatlas.com/"
+
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
@@ -39,9 +38,6 @@ class AppModule {
             .diskCacheStrategy(DiskCacheStrategy.DATA)
     )
 
-
-
-
     @Singleton
     @Provides
     fun provideSearchBoardGamesCase(repository: BoardGamesInfoRepository):
@@ -55,7 +51,6 @@ class AppModule {
     ): BoardGamesInfoRepository {
         return BoardGamesInfoRepositoryImpl(api, context)
     }
-
 
     @Singleton
     @Provides
@@ -88,6 +83,4 @@ class AppModule {
     @Provides
     @Singleton
     fun provideApi(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
-
-
 }

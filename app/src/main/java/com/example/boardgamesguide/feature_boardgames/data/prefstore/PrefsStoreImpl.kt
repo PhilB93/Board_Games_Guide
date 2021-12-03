@@ -14,8 +14,7 @@ import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
 
-
- class PrefsStoreImpl @Inject constructor(
+class PrefsStoreImpl @Inject constructor(
     @ApplicationContext context: Context
 ) : PrefsStore {
 
