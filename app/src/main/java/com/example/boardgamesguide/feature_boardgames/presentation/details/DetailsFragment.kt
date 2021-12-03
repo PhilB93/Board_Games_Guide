@@ -23,27 +23,26 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding) {
-            webView.apply {
-                settings.javaScriptEnabled = true
-                webViewClient = WebViewClient()
-                if (savedInstanceState != null)
-                    restoreState(savedInstanceState)
-                else
-                    loadUrl(args.game.url)
+        binding.webView.apply {
+            settings.javaScriptEnabled = true
+            webViewClient = WebViewClient()
+            if (savedInstanceState != null)
+                restoreState(savedInstanceState)
+            else
+                loadUrl(args.game.url)
 
-                setOnKeyListener { _, keyCode, event ->
-                    if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
-                        if (this.canGoBack())
-                            this.goBack()
-                        else
-                            requireActivity().onBackPressed()
-                    }
-                    return@setOnKeyListener true
+            setOnKeyListener { _, keyCode, event ->
+                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (this.canGoBack())
+                        this.goBack()
+                    else
+                        requireActivity().onBackPressed()
                 }
+                return@setOnKeyListener true
             }
         }
     }
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
