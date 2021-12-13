@@ -7,7 +7,7 @@ concepts and MVVM with Flow
 ## Screenshots
 
 <p>
-<img src="first.png" width="24%" height="40%"/>
+<img src="main.png" width="24%" height="40%"/>
 <img src="second.png" width="24%" height="40%"/>
 </p>
 
