@@ -1,5 +1,6 @@
 package com.example.boardgamesguide.feature_boardgames.presentation.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.boardgamesguide.feature_boardgames.domain.prefsstore.PrefsStore
@@ -55,8 +56,10 @@ class BoardGamesViewModel @Inject constructor(
                         is Resource.Error -> {
                             _state.value = state.value.copy(
                                 games = result.data ?: emptyList(),
+
                                 isLoading = false
                             )
+                            Log.i("123", result.data.toString())
                             _eventFlow.send(
                                 UIEvent.ShowSnackbar(
                                     result.message ?: "Unknown error"
@@ -70,6 +73,7 @@ class BoardGamesViewModel @Inject constructor(
                             )
                         }
                     }
+                    Log.i("123", result.data.toString())
                 }
         }
     }

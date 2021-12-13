@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Game(
     val average_user_rating: Double,
-    val id: String,
+    val id: String?,
     val image_url: String,
     val name: String,
     val url: String,

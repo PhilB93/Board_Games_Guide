@@ -1,9 +1,11 @@
 package com.example.boardgamesguide.feature_boardgames.domain.repository
 
 import com.example.boardgamesguide.feature_boardgames.domain.model.Game
+import com.example.boardgamesguide.util.Resource
+import kotlinx.coroutines.flow.Flow
 
 interface BoardGamesInfoRepository {
-    suspend fun searchBoardGames(
+     fun searchBoardGames(
         name: String
-    ): List<Game>
+    ): Flow<Resource<List<Game>>>
 }

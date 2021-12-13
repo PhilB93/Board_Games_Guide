@@ -20,9 +20,11 @@ import com.example.boardgamesguide.feature_boardgames.domain.model.Game
 import com.example.boardgamesguide.feature_boardgames.presentation.main.adapter.BoardGameOnClickListener
 import com.example.boardgamesguide.feature_boardgames.presentation.main.adapter.SearchGamesAdapter
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener {
@@ -30,6 +32,9 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     private val gameAdapter by lazy(LazyThreadSafetyMode.NONE) { SearchGamesAdapter(this) }
     private val binding: FragmentMainBinding by viewBinding()
     private val viewModel by viewModels<BoardGamesViewModel>()
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,6 +49,10 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.ivNodata.let { Glide.with(requireContext()).load(R.drawable.ic_nodata).into(it) }
+
+        if (auth.currentUser ==null)
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToLoginFragment())
+
         setupRecyclerView()
         handleEvent()
         collectData()

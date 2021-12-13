@@ -1,10 +1,13 @@
 package com.example.boardgamesguide.feature_boardgames.di
 
+import android.app.Application
 import android.content.Context
+import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.boardgamesguide.R
+import com.example.boardgamesguide.feature_boardgames.data.local.BoardGamesDatabase
 import com.example.boardgamesguide.feature_boardgames.data.remote.ApiService
 import com.example.boardgamesguide.feature_boardgames.data.repository.BoardGamesInfoRepositoryImpl
 import com.example.boardgamesguide.feature_boardgames.domain.repository.BoardGamesInfoRepository
@@ -20,7 +23,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+
 private const val BASE_URL = "https://api.boardgameatlas.com/"
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -47,9 +52,9 @@ class AppModule {
     @Singleton
     fun provideWordInfoRepository(
         api: ApiService,
-        @ApplicationContext context: Context
+        db: BoardGamesDatabase,
     ): BoardGamesInfoRepository {
-        return BoardGamesInfoRepositoryImpl(api, context)
+        return BoardGamesInfoRepositoryImpl(api,db.dao)
     }
 
     @Singleton
@@ -83,4 +88,15 @@ class AppModule {
     @Provides
     @Singleton
     fun provideApi(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideBoardGamesDatabase(app: Application): BoardGamesDatabase {
+        return Room.databaseBuilder(
+            app, BoardGamesDatabase::class.java, "games_db"
+        ).build()
+    }
+
+
+
 }

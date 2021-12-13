@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.feature_boardgames.data.model
+package com.example.boardgamesguide.feature_boardgames.data.remote.model
 
 import com.example.boardgamesguide.feature_boardgames.domain.model.GameItems
 

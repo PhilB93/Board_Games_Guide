@@ -1,6 +1,6 @@
 package com.example.boardgamesguide.feature_boardgames.data.remote
 
-import com.example.boardgamesguide.feature_boardgames.data.model.GameItemsDto
+import com.example.boardgamesguide.feature_boardgames.data.remote.model.GameItemsDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

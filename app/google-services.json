@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "356473562439",
+    "project_id": "boardgamesguide",
+    "storage_bucket": "boardgamesguide.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356473562439:android:2be34b14805c5660aed862",
+        "android_client_info": {
+          "package_name": "com.example.boardgamesguide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "356473562439-ufhju263g90thaog5tcve4gr2tkqco0q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZh1qMPmIcJTUQyFjwOOyduA1o0CQQjk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "356473562439-ufhju263g90thaog5tcve4gr2tkqco0q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
