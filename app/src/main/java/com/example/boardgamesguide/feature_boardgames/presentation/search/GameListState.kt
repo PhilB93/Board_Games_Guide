@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.feature_boardgames.presentation.main
+package com.example.boardgamesguide.feature_boardgames.presentation.search
 
 import com.example.boardgamesguide.feature_boardgames.domain.model.Game
 

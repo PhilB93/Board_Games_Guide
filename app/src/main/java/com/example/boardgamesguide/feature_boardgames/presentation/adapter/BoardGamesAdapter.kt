@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.feature_boardgames.presentation.main.adapter
+package com.example.boardgamesguide.feature_boardgames.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -17,8 +17,8 @@ import com.example.boardgamesguide.feature_boardgames.domain.model.Game
 
 private const val ROUNDED_CORNERS = 16
 
-class SearchGamesAdapter(private val listener: BoardGameOnClickListener) :
-    ListAdapter<Game, SearchGamesAdapter.MainViewHolder>(ItemDiffUtil()) {
+class BoardGamesAdapter(private val listener: BoardGameOnClickListener) :
+    ListAdapter<Game, BoardGamesAdapter.MainViewHolder>(ItemDiffUtil()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

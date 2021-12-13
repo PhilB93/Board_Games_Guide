@@ -20,7 +20,7 @@ class BoardGamesInfoRepositoryImpl @Inject constructor(
     override  fun searchBoardGames(name: String): Flow<Resource<List<Game>>> = flow {
 
         emit(Resource.Loading(emptyList()))
-        val games = dao.getBoardGames(name).map { it.toGame() }
+        val games = dao.searchBoardGames(name).map { it.toGame() }
         emit(Resource.Loading(games))
         try {
             val remoteBoardGames = apiService.searchBoardGames(name).games
@@ -49,7 +49,43 @@ class BoardGamesInfoRepositoryImpl @Inject constructor(
                 )
             )
         }
-        val newBoardGames = dao.getBoardGames(name).map { it.toGame() }
+        val newBoardGames = dao.searchBoardGames(name).map { it.toGame() }
+        emit(Resource.Success(newBoardGames))
+    }
+
+    override fun getBoardGames(): Flow<Resource<List<Game>>> = flow {
+
+        emit(Resource.Loading(emptyList()))
+        val games = dao.getBoardGames().map { it.toGame() }
+        emit(Resource.Loading(games))
+        try {
+            val remoteBoardGames = apiService.getBoardGames().games
+            dao.deleteBoardGames(remoteBoardGames.map { it.name })
+            dao.insertBoardGames(remoteBoardGames.map { it.toBoardGamesEntity() })
+        } catch (e: HttpException) {
+            e.printStackTrace()
+            emit(
+                Resource.Error(
+                    data = games,
+                    message = "An unexpected error occurred"
+                )
+            )
+        } catch (e: IOException) {
+            emit(
+                Resource.Error(
+                    data = games,
+                    message = "Couldn't reach server. Check your internet connection."
+                )
+            )
+        } catch (e: InputException) {
+            emit(
+                Resource.Error(
+                    data =games,
+                    message = "Plz check your input"
+                )
+            )
+        }
+        val newBoardGames = dao.getBoardGames().map { it.toGame() }
         emit(Resource.Success(newBoardGames))
     }
 }

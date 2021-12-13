@@ -15,5 +15,8 @@ interface BoardGamesDao {
     suspend fun deleteBoardGames(names: List<String>)
 
     @Query("SELECT * FROM boardgamesentity WHERE name LIKE '%' || :name || '%'")
-    suspend fun getBoardGames(name: String): List<BoardGamesEntity>
+    suspend fun searchBoardGames(name: String): List<BoardGamesEntity>
+
+    @Query("SELECT * FROM boardgamesentity")
+    suspend fun getBoardGames(): List<BoardGamesEntity>
 }

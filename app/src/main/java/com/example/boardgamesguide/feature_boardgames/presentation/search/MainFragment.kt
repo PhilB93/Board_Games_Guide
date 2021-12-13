@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.feature_boardgames.presentation.main
+package com.example.boardgamesguide.feature_boardgames.presentation.search
 
 import android.os.Bundle
 import android.util.Log
@@ -17,8 +17,8 @@ import com.bumptech.glide.Glide
 import com.example.boardgamesguide.R
 import com.example.boardgamesguide.databinding.FragmentMainBinding
 import com.example.boardgamesguide.feature_boardgames.domain.model.Game
-import com.example.boardgamesguide.feature_boardgames.presentation.main.adapter.BoardGameOnClickListener
-import com.example.boardgamesguide.feature_boardgames.presentation.main.adapter.SearchGamesAdapter
+import com.example.boardgamesguide.feature_boardgames.presentation.adapter.BoardGameOnClickListener
+import com.example.boardgamesguide.feature_boardgames.presentation.adapter.BoardGamesAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +29,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener {
 
-    private val gameAdapter by lazy(LazyThreadSafetyMode.NONE) { SearchGamesAdapter(this) }
+    private val gameAdapter by lazy(LazyThreadSafetyMode.NONE) { BoardGamesAdapter(this) }
     private val binding: FragmentMainBinding by viewBinding()
     private val viewModel by viewModels<BoardGamesViewModel>()
 
@@ -43,7 +43,6 @@ class MainFragment : Fragment(R.layout.fragment_main), BoardGameOnClickListener 
     ): View? {
         observeUiMode()
         return super.onCreateView(inflater, container, savedInstanceState)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

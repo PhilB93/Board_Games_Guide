@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.feature_boardgames.presentation.main.adapter
+package com.example.boardgamesguide.feature_boardgames.presentation.adapter
 
 import com.example.boardgamesguide.feature_boardgames.domain.model.Game
 

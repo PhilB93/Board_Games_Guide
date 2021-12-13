@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.boardgamesguide.R
 import com.example.boardgamesguide.databinding.FragmentSettingBinding
-import com.example.boardgamesguide.feature_boardgames.presentation.main.BoardGamesViewModel
+import com.example.boardgamesguide.feature_boardgames.presentation.search.BoardGamesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 

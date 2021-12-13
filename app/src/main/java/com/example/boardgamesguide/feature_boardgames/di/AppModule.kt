@@ -12,6 +12,7 @@ import com.example.boardgamesguide.feature_boardgames.data.remote.ApiService
 import com.example.boardgamesguide.feature_boardgames.data.repository.BoardGamesInfoRepositoryImpl
 import com.example.boardgamesguide.feature_boardgames.domain.repository.BoardGamesInfoRepository
 import com.example.boardgamesguide.feature_boardgames.domain.use_case.SearchBoardGamesUseCase
+import com.example.boardgamesguide.feature_boardgames.domain.use_case.TopBoardGamesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,6 +49,10 @@ class AppModule {
     fun provideSearchBoardGamesCase(repository: BoardGamesInfoRepository):
             SearchBoardGamesUseCase = SearchBoardGamesUseCase(repository)
 
+    @Singleton
+    @Provides
+    fun provideTopBoardGamesCase(repository: BoardGamesInfoRepository):
+            TopBoardGamesUseCase = TopBoardGamesUseCase(repository)
     @Provides
     @Singleton
     fun provideWordInfoRepository(

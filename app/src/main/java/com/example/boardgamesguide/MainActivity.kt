@@ -32,6 +32,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                         if (item.itemId != binding.bottomNavigationView.selectedItemId)
                             NavigationUI.onNavDestinationSelected(item, navController)
                     }
+                    R.id.listFragment -> {
+                        if (item.itemId != binding.bottomNavigationView.selectedItemId)
+                            NavigationUI.onNavDestinationSelected(item, navController)
+                    }
                     else -> onBackPressed()
                 }
                 if (item.itemId != binding.bottomNavigationView.selectedItemId)

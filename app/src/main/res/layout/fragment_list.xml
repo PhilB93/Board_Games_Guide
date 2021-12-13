@@ -5,21 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature_boardgames.presentation.search.MainFragment">
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/sv_games"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:foregroundGravity="left"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:focusable="false"
-        android:focusableInTouchMode="true"
-        app:iconifiedByDefault="false"/>
+    tools:context="feature_boardgames.presentation.list.ListFragment">
 
 
     <com.google.android.material.card.MaterialCardView
@@ -30,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sv_games">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"

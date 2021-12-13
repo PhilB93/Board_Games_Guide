@@ -29,5 +29,7 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="setFilters">Set Some Filters</string>
     <string name="change_theme">Change Theme</string>
+    <string name="top_games">Top Games</string>
+    <string name="search">Search</string>
 
 </resources>

@@ -8,4 +8,7 @@ interface BoardGamesInfoRepository {
      fun searchBoardGames(
         name: String
     ): Flow<Resource<List<Game>>>
+
+    fun getBoardGames(
+    ): Flow<Resource<List<Game>>>
 }

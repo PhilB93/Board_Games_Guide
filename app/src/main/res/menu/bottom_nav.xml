@@ -2,9 +2,12 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/home"
+    <item android:title="@string/search"
         android:id="@+id/mainFragment"
-        android:icon="@drawable/ic_baseline_home_24"/>
+        android:icon="@drawable/ic_baseline_search_24"/>
+    <item android:title="@string/top_games"
+        android:id="@+id/listFragment"
+        android:icon="@drawable/ic_baseline_list_alt_24"/>
     <item android:title="@string/settings"
         android:id="@+id/settingFragment"
         android:icon="@drawable/ic_baseline_settings_24"/>

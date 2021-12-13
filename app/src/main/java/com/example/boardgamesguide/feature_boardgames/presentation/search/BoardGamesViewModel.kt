@@ -1,4 +1,4 @@
-package com.example.boardgamesguide.feature_boardgames.presentation.main
+package com.example.boardgamesguide.feature_boardgames.presentation.search
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
